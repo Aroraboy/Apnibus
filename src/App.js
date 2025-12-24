@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -6,6 +6,15 @@ function App() {
   const [arrival, setArrival] = useState('');
   const [date, setDate] = useState('');
   const [passengers, setPassengers] = useState(1);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -14,8 +23,13 @@ function App() {
 
   return (
     <div className="App">
+      {/* Promotional Banner */}
+      <div className="promo-banner">
+        <span className="promo-text">🎉 Special Offer: Get 20% OFF on your first booking! Use code: <strong>FIRST20</strong></span>
+      </div>
+
       {/* Navigation */}
-      <nav className="navbar">
+      <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
         <div className="nav-container">
           <div className="logo">
             <span className="logo-icon">🚌</span>
@@ -33,9 +47,21 @@ function App() {
 
       {/* Hero Section */}
       <section className="hero" id="home">
+        <div className="hero-bg-animation">
+          <div className="floating-element" style={{top: '10%', left: '10%', animationDelay: '0s'}}>🚌</div>
+          <div className="floating-element" style={{top: '20%', right: '15%', animationDelay: '2s'}}>🎫</div>
+          <div className="floating-element" style={{bottom: '20%', left: '15%', animationDelay: '4s'}}>⭐</div>
+          <div className="floating-element" style={{bottom: '30%', right: '10%', animationDelay: '3s'}}>🌟</div>
+        </div>
         <div className="hero-content">
-          <h1>Bharat Ka #1 Bus Booking App</h1>
-          <p>Travel Smart, Travel Safe with ApniBus</p>
+          <div className="badge-new">✨ Official RSRTC Partner</div>
+          <h1 className="gradient-text">Rajasthan Ka #1 Bus Booking App</h1>
+          <p className="hero-subtitle">Travel Smart, Travel Safe with ApniBus</p>
+          <div className="hero-stats-mini">
+            <span>🎯 5L+ Users</span>
+            <span>⚡ Instant Booking</span>
+            <span>💯 Best Prices</span>
+          </div>
           
           {/* Search Bar */}
           <form className="search-form" onSubmit={handleSearch}>
@@ -87,42 +113,83 @@ function App() {
         </div>
       </section>
 
+      {/* Trust Badges */}
+      <section className="trust-section">
+        <div className="trust-container">
+          <div className="trust-item">
+            <span className="trust-icon">🔒</span>
+            <span>100% Secure Payment</span>
+          </div>
+          <div className="trust-item">
+            <span className="trust-icon">⚡</span>
+            <span>Instant Confirmation</span>
+          </div>
+          <div className="trust-item">
+            <span className="trust-icon">🏆</span>
+            <span>Award Winning Service</span>
+          </div>
+          <div className="trust-item">
+            <span className="trust-icon">💰</span>
+            <span>Best Price Guarantee</span>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us Section */}
       <section className="features" id="features">
-        <h2>Why Choose ApniBus?</h2>
+        <div className="section-header">
+          <span className="section-subtitle">BENEFITS</span>
+          <h2>Why Choose ApniBus?</h2>
+          <p className="section-description">Experience the best in class bus booking service with unmatched features</p>
+        </div>
         <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">💰</div>
+          <div className="feature-card" data-aos="fade-up">
+            <div className="feature-icon-wrapper">
+              <div className="feature-icon">💰</div>
+            </div>
             <h3>Lowest Fares</h3>
             <p>Work directly with operators to pass savings to you. Get the best deals on every route.</p>
+            <div className="feature-badge">Popular</div>
           </div>
 
-          <div className="feature-card">
-            <div className="feature-icon">💺</div>
+          <div className="feature-card" data-aos="fade-up" data-aos-delay="100">
+            <div className="feature-icon-wrapper">
+              <div className="feature-icon">💺</div>
+            </div>
             <h3>Guaranteed Seats</h3>
             <p>Reserve your preferred seat in advance for comfort and peace of mind throughout your journey.</p>
           </div>
 
-          <div className="feature-card">
-            <div className="feature-icon">⚡</div>
+          <div className="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <div className="feature-icon-wrapper">
+              <div className="feature-icon">⚡</div>
+            </div>
             <h3>Instant Booking</h3>
             <p>Complete your booking in seconds with secure payment options including UPI and e-wallets.</p>
+            <div className="feature-badge">Fast</div>
           </div>
 
-          <div className="feature-card">
-            <div className="feature-icon">📍</div>
+          <div className="feature-card" data-aos="fade-up" data-aos-delay="300">
+            <div className="feature-icon-wrapper">
+              <div className="feature-icon">📍</div>
+            </div>
             <h3>Live Tracking</h3>
             <p>Real-time GPS tracking lets you know your bus location and estimated arrival time.</p>
+            <div className="feature-badge">Live</div>
           </div>
 
-          <div className="feature-card">
-            <div className="feature-icon">🆘</div>
+          <div className="feature-card" data-aos="fade-up" data-aos-delay="400">
+            <div className="feature-icon-wrapper">
+              <div className="feature-icon">🆘</div>
+            </div>
             <h3>24/7 Support</h3>
             <p>Round-the-clock customer support in English, Hindi, and Hinglish for your peace of mind.</p>
           </div>
 
-          <div className="feature-card">
-            <div className="feature-icon">🌍</div>
+          <div className="feature-card" data-aos="fade-up" data-aos-delay="500">
+            <div className="feature-icon-wrapper">
+              <div className="feature-icon">🌍</div>
+            </div>
             <h3>Wide Coverage</h3>
             <p>3.5+ Lakh routes across India with partnerships including official RSRTC service.</p>
           </div>
@@ -151,7 +218,11 @@ function App() {
 
       {/* Popular Routes Section */}
       <section className="routes" id="routes">
-        <h2>Popular Routes</h2>
+        <div className="section-header">
+          <span className="section-subtitle">TOP DESTINATIONS</span>
+          <h2>Popular Routes</h2>
+          <p className="section-description">Explore our most traveled routes with the best bus services</p>
+        </div>
         <div className="routes-grid">
           {[
             { from: 'Delhi', to: 'Jaipur', buses: '500+' },
@@ -173,7 +244,11 @@ function App() {
 
       {/* Bus Types Section */}
       <section className="bus-types">
-        <h2>Choose Your Comfort Level</h2>
+        <div className="section-header">
+          <span className="section-subtitle">BUS CATEGORIES</span>
+          <h2>Choose Your Comfort Level</h2>
+          <p className="section-description">Select from our wide range of bus types tailored to your travel needs</p>
+        </div>
         <div className="bus-grid">
           <div className="bus-card">
             <h3>🚌 AC Seater</h3>
@@ -195,9 +270,15 @@ function App() {
       </section>
 
       {/* CTA Section */}
-      <section className="cta">
+      <section className="cta" id="app">
+        <div className="cta-decoration"></div>
         <h2>Download ApniBus App</h2>
         <p>Book your next journey on-the-go with our mobile app</p>
+        <div className="app-features">
+          <span>📱 Easy Interface</span>
+          <span>🔔 Instant Notifications</span>
+          <span>💳 Multiple Payment Options</span>
+        </div>
         <div className="cta-buttons">
           <button className="btn-primary">📱 Google Play</button>
           <button className="btn-secondary">🍎 App Store</button>
@@ -206,7 +287,11 @@ function App() {
 
       {/* Testimonials */}
       <section className="testimonials">
-        <h2>What Our Customers Say</h2>
+        <div className="section-header">
+          <span className="section-subtitle">TESTIMONIALS</span>
+          <h2>What Our Customers Say</h2>
+          <p className="section-description">Join thousands of satisfied travelers who trust ApniBus</p>
+        </div>
         <div className="testimonials-grid">
           <div className="testimonial-card">
             <div className="rating">⭐⭐⭐⭐⭐</div>
